@@ -1,67 +1,75 @@
-"use client";
+import Link from "next/link";
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+const primaryMenu = [
+  { label: "오늘", href: "/today" },
+  { label: "뉴스", href: "/news" },
+  { label: "시장", href: "/market" },
+  { label: "Alpha", href: "/alpha" },
+  { label: "현재 인기 주제", href: "/trending-topics" },
+  { label: "기능", href: "/features" },
+  { label: "적립", href: "/rewards" },
+  { label: "계정", href: "/account" },
+];
 
-interface Issue {
-  id: number;
-  title: string;
-  score: number;
-  summary: string;
-}
+const utilityMenu = [
+  { label: "언어", href: "/language" },
+  { label: "앱 다운로드", href: "/app-download" },
+  { label: "로그인", href: "/login" },
+];
 
-export default function DashboardPage() {
-  const [issues, setIssues] = useState<Issue[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchIssues = async () => {
-      try {
-        const res = await fetch('/api/issues');
-        const data = await res.json();
-        setIssues(data);
-      } catch (error) {
-        console.error('Failed to fetch issues:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchIssues();
-  }, []);
-
+export default function Home() {
   return (
-    <div className="bg-gray-900 text-white min-h-screen">
-      <header className="p-4 bg-gray-800 shadow-md">
-        <h1 className="text-3xl font-bold text-center text-cyan-400">Crypto Auto-Researcher</h1>
-      </header>
-
-      <main className="p-4 md:p-8">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-semibold">Latest Issues</h2>
-          {/* 필터 버튼은 여기에 추가될 수 있습니다. */}
-        </div>
-
-        {loading ? (
-          <p className="text-center">Loading issues...</p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {issues.map((issue) => (
-              <div key={issue.id} className="bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-cyan-500/50 transition-shadow duration-300">
-                <div className="flex justify-between items-start">
-                  <h3 className="text-xl font-bold mb-2">{issue.title}</h3>
-                  <span className={`text-2xl font-bold ${issue.score > 90 ? 'text-green-400' : 'text-yellow-400'}`}>
-                    {issue.score}
-                  </span>
-                </div>
-                <p className="text-gray-400 mt-4">{issue.summary}</p>
-                <Link href={`/issue/${issue.id}`} className="text-cyan-400 hover:text-cyan-300 mt-4 inline-block">
-                  Read more &rarr;
-                </Link>
-              </div>
+    <div className="min-h-screen bg-slate-950 text-slate-100">
+      <header className="sticky top-0 z-10 border-b border-white/10 bg-slate-950/70 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+          <div className="flex items-center gap-3">
+            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-amber-300 via-rose-400 to-fuchsia-500 shadow-lg shadow-rose-500/20" />
+            <span className="text-lg font-semibold tracking-wide">
+              CryptoSaaS
+            </span>
+          </div>
+          <nav className="hidden items-center gap-6 text-sm text-slate-200 lg:flex">
+            {primaryMenu.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                className="cursor-pointer transition-colors hover:text-white"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+          <div className="hidden items-center gap-3 text-sm text-slate-300 lg:flex">
+            {utilityMenu.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                className="cursor-pointer rounded-full border border-white/10 px-3 py-1 transition-colors hover:border-white/30 hover:text-white"
+              >
+                {item.label}
+              </Link>
             ))}
           </div>
-        )}
+        </div>
+        <div className="border-t border-white/5 lg:hidden">
+          <div className="mx-auto flex max-w-6xl gap-4 overflow-x-auto px-6 py-3 text-sm text-slate-300">
+            {primaryMenu.concat(utilityMenu).map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                className="whitespace-nowrap rounded-full border border-white/10 px-3 py-1"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </header>
+
+      <main className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-16">
+        <div className="rounded-3xl border border-dashed border-white/15 bg-white/5 p-10 text-slate-300">
+          콘텐츠 영역
+        </div>
       </main>
     </div>
   );
