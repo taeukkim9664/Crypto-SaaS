@@ -1,0 +1,9 @@
+requests
+tweepy
+feedparser
+python-dotenv
+supabase
+scikit-learn
+sentence-transformers
+torch
+openai
