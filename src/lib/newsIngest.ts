@@ -151,20 +151,20 @@ async function translateLatest() {
   const model = process.env.OPENAI_MODEL ?? "gpt-5";
 
   const db = await getDb();
-  const rows = await db.all<{
-    id: number;
-    title: string;
-    description: string | null;
-    title_ko: string | null;
-    description_ko: string | null;
-  }>(
+  const rows = (await db.all(
     `SELECT id, title, description, title_ko, description_ko
      FROM news_items
      WHERE (title_ko IS NULL OR description_ko IS NULL)
      ORDER BY published_at DESC
      LIMIT ?`,
     max
-  );
+  )) as Array<{
+    id: number;
+    title: string;
+    description: string | null;
+    title_ko: string | null;
+    description_ko: string | null;
+  }>;
 
   if (rows.length === 0) return;
 
@@ -229,20 +229,20 @@ async function summarizeLatest() {
   const model = process.env.OPENAI_MODEL ?? "gpt-5";
 
   const db = await getDb();
-  const rows = await db.all<{
-    id: number;
-    title: string;
-    description: string | null;
-    title_ko: string | null;
-    description_ko: string | null;
-  }>(
+  const rows = (await db.all(
     `SELECT id, title, description
      FROM news_items
      WHERE summary_ko IS NULL
      ORDER BY published_at DESC
      LIMIT ?`,
     max
-  );
+  )) as Array<{
+    id: number;
+    title: string;
+    description: string | null;
+    title_ko: string | null;
+    description_ko: string | null;
+  }>;
 
   if (rows.length === 0) return;
 
