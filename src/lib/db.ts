@@ -37,9 +37,9 @@ export async function getDb() {
     );
   `);
 
-  const columns = await db.all<{ name: string }>(
+  const columns = (await db.all(
     "PRAGMA table_info(news_items)"
-  );
+  )) as Array<{ name: string }>;
   const columnNames = new Set(columns.map((col) => col.name));
 
   const addColumn = async (name: string, type: string) => {
