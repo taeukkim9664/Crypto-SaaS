@@ -10,6 +10,11 @@ type D1Database = {
   };
 };
 
+type PagesFunction<Env = unknown> = (context: {
+  request: Request;
+  env: Env;
+}) => Promise<Response>;
+
 type Env = {
   DB: D1Database;
   GNEWS_API_KEY?: string;
