@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import BackButton from "../_components/BackButton";
 
 type NewsItem = {
   id: number;
@@ -37,6 +38,9 @@ export default function NewsPage() {
 
   return (
     <main className="relative mx-auto flex max-w-6xl flex-col gap-10 px-6 py-16">
+      <div className="flex items-center">
+        <BackButton />
+      </div>
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-80 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.25),_transparent_65%)]" />
 
       <header className="flex flex-col gap-5 rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 via-white/5 to-white/10 p-8">

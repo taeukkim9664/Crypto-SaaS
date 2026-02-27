@@ -1,3 +1,5 @@
+import BackButton from "../_components/BackButton";
+
 const sections = [
   "핵심 지표",
   "트렌드",
@@ -10,6 +12,9 @@ const sections = [
 export default function Page() {
   return (
     <main className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-16">
+      <div className="flex items-center">
+        <BackButton />
+      </div>
       <header className="flex flex-col gap-2">
         <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
           Section
