@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "fast-xml-parser": "^5.0.7",
     "next": "^15.2.0",
     "openai": "^5.10.2",
     "react": "^19.0.0",
