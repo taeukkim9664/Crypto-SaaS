@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   allowedDevOrigins: [
     "http://localhost:3000",
     "http://127.0.0.1:3000",

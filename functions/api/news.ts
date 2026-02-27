@@ -1,5 +1,15 @@
 import { XMLParser } from "fast-xml-parser";
 
+type D1Database = {
+  prepare: (query: string) => {
+    bind: (...values: unknown[]) => {
+      run: () => Promise<{ success: boolean }>;
+      first: <T = unknown>() => Promise<T | null>;
+      all: <T = unknown>() => Promise<{ results?: T[] }>;
+    };
+  };
+};
+
 type Env = {
   DB: D1Database;
   GNEWS_API_KEY?: string;
